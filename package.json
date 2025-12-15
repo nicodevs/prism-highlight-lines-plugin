@@ -1,6 +1,6 @@
 {
   "name": "prism-highlight-lines-plugin",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "A Prism.js plugin for highlighting code lines with annotations - supports multiple highlight types (highlight, add, remove) with flexible range syntax",
   "main": "dist/index.js",
   "module": "dist/index.mjs",
