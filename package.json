@@ -1,0 +1,54 @@
+{
+  "name": "prism-highlight-lines-plugin",
+  "version": "0.1.0",
+  "description": "A Prism.js plugin for highlighting code lines with annotations - supports multiple highlight types (highlight, add, remove) with flexible range syntax",
+  "main": "dist/index.js",
+  "module": "dist/index.mjs",
+  "browser": "dist/index.min.js",
+  "type": "module",
+  "files": [
+    "dist",
+    "src/style.css"
+  ],
+  "scripts": {
+    "build": "rollup -c",
+    "test": "vitest",
+    "test:ui": "vitest --ui",
+    "test:coverage": "vitest --coverage"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nicodevs/prism-highlight-lines-plugin.git"
+  },
+  "bugs": {
+    "url": "https://github.com/nicodevs/prism-highlight-lines-plugin/issues"
+  },
+  "homepage": "https://github.com/nicodevs/prism-highlight-lines-plugin#readme",
+  "keywords": [
+    "prism",
+    "prismjs",
+    "syntax-highlighting",
+    "line-highlight",
+    "code-highlight",
+    "plugin",
+    "syntax",
+    "highlight",
+    "annotation",
+    "diff"
+  ],
+  "author": "Nico Devs <hi@nicodevs.com>",
+  "license": "MIT",
+  "publishConfig": {
+    "access": "public"
+  },
+  "peerDependencies": {
+    "prismjs": "^1.0.0"
+  },
+  "devDependencies": {
+    "@rollup/plugin-terser": "^0.4.4",
+    "@vitest/ui": "^2.1.8",
+    "happy-dom": "^15.11.7",
+    "rollup": "^4.53.4",
+    "vitest": "^2.1.8"
+  }
+}
