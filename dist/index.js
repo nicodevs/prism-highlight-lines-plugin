@@ -190,15 +190,21 @@ function init(Prism) {
       const lineHeight = parseFloat(lh) || parseFloat(fs) * 1.2 || 20;
       const paddingTop = parseFloat(pt) || 0;
 
-      // Get the full scrollable width of the code content
-      const contentWidth = Math.max(code.scrollWidth, code.offsetWidth);
+      // Get the full scrollable width of the content
+      // Use scrollWidth which includes all content including overflow
+      const contentWidth = Math.max(
+        pre.scrollWidth,
+        code.scrollWidth,
+        code.offsetWidth
+      );
 
       pre.querySelectorAll('.line-highlight-overlay').forEach(highlight => {
         const top = paddingTop + ((+highlight.dataset.line - 1) * lineHeight);
         Object.assign(highlight.style, {
           top: top + 'px',
           height: lineHeight + 'px',
-          width: contentWidth + 'px'
+          width: contentWidth + 'px',
+          minWidth: contentWidth + 'px'
         });
       });
     };
@@ -210,17 +216,25 @@ function init(Prism) {
     });
 
     if (typeof window !== 'undefined' && window.MutationObserver) {
-      new MutationObserver(mutations => {
-        mutations.forEach(({ addedNodes }) => {
-          addedNodes.forEach(node => {
-            if (node.nodeType === 1) {
-              (node.querySelectorAll?.('pre[class*="language-"]') || []).forEach(pre =>
-                requestAnimationFrame(() => positionHighlights(pre))
-              );
-            }
+      const setupObserver = () => {
+        new MutationObserver(mutations => {
+          mutations.forEach(({ addedNodes }) => {
+            addedNodes.forEach(node => {
+              if (node.nodeType === 1) {
+                (node.querySelectorAll?.('pre[class*="language-"]') || []).forEach(pre =>
+                  requestAnimationFrame(() => positionHighlights(pre))
+                );
+              }
+            });
           });
-        });
-      }).observe(document.body, { childList: true, subtree: true });
+        }).observe(document.body, { childList: true, subtree: true });
+      };
+
+      if (document.body) {
+        setupObserver();
+      } else {
+        document.addEventListener('DOMContentLoaded', setupObserver);
+      }
     }
 
     if (typeof window !== 'undefined') {

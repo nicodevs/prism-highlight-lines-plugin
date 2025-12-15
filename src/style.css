@@ -11,82 +11,14 @@ pre.line-highlight {
 /* Default highlight (yellow) */
 .line-highlight-overlay.line-highlight-default {
     background-color: rgba(255, 255, 0, 0.2);
-    border-left: 3px solid #f7df1e;
-}
-
-.line-highlight-overlay.line-highlight-default::before {
-    content: '';
-    position: absolute;
-    left: -3px;
-    top: 0;
-    bottom: 0;
-    width: 3px;
-    background-color: #f7df1e;
 }
 
 /* Add highlight (green) */
 .line-highlight-overlay.line-highlight-add {
     background-color: rgba(34, 197, 94, 0.15);
-    border-left: 3px solid #22c55e;
-}
-
-.line-highlight-overlay.line-highlight-add::before {
-    content: '';
-    position: absolute;
-    left: -3px;
-    top: 0;
-    bottom: 0;
-    width: 3px;
-    background-color: #22c55e;
 }
 
 /* Remove highlight (red) */
 .line-highlight-overlay.line-highlight-remove {
     background-color: rgba(239, 68, 68, 0.15);
-    border-left: 3px solid #ef4444;
-}
-
-.line-highlight-overlay.line-highlight-remove::before {
-    content: '';
-    position: absolute;
-    left: -3px;
-    top: 0;
-    bottom: 0;
-    width: 3px;
-    background-color: #ef4444;
-}
-
-/* Optional: Add icons or indicators */
-.line-highlight-overlay.line-highlight-add::after {
-    content: '+';
-    position: absolute;
-    right: 8px;
-    top: 50%;
-    transform: translateY(-50%);
-    color: #22c55e;
-    font-weight: bold;
-    font-size: 0.8em;
-    opacity: 0.7;
-}
-
-.line-highlight-overlay.line-highlight-remove::after {
-    content: '−';
-    position: absolute;
-    right: 8px;
-    top: 50%;
-    transform: translateY(-50%);
-    color: #ef4444;
-    font-weight: bold;
-    font-size: 0.8em;
-    opacity: 0.7;
-}
-
-@media (min-width: 1024px) {
-    body {
-        font-size: 24px;
-    }
-
-    pre[class*="language-"], code[class*="language-"] {
-        font-size: 18px;
-    }
 }

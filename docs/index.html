@@ -16,6 +16,9 @@
   <link href="https://cdn.jsdelivr.net/npm/prism-highlight-lines-plugin@latest/src/style.css" rel="stylesheet">
   <script src="https://cdn.jsdelivr.net/npm/prism-highlight-lines-plugin@latest/dist/index.min.js"></script>
 
+  <!-- <link href="../src/style.css" rel="stylesheet"> -->
+  <!-- <script src="../dist/index.min.js"></script> -->
+
   <style>
 
     body {
@@ -50,6 +53,7 @@ pre {
   max-width: 100%;
   padding: 1rem;
   font-size: 1rem;
+  overflow-x: scroll;
 }
     .test-section {
       margin: 2rem 0;
@@ -194,7 +198,7 @@ pre {
   }
 
   async updateUser(id: string, data: Partial&lt;User&gt;): Promise&lt;User&gt; { // [tl! add:3]
-    return await this.api.put(`/users/${id}`, data);
+    return /* this is a really really really long comment to see if this works */ await this.api.put(`/users/${id}`, data);
   }
 }</pre>
     <p><strong>Result:</strong></p>
@@ -204,7 +208,7 @@ pre {
   }
 
   async updateUser(id: string, data: Partial<User>): Promise<User> { // [tl! add:3]
-    return await this.api.put(`/users/${id}`, data);
+    return /* this is a really really really long comment to see if this works */ await this.api.put(`/users/${id}`, data);
   }
 }
 </code></pre>
