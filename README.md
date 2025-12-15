@@ -30,10 +30,16 @@ import 'prism-highlight-lines-plugin/src/style.css';
 ### 2. Or use via CDN
 
 ```html
+<!-- Prism Core -->
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/prismjs@1/themes/prism.min.css">
-<link rel="stylesheet" href="path/to/style.css">
 <script src="https://cdn.jsdelivr.net/npm/prismjs@1/prism.min.js"></script>
-<script src="path/to/plugin.js"></script>
+
+<!-- Add language components as needed -->
+<script src="https://cdn.jsdelivr.net/npm/prismjs@1/components/prism-javascript.min.js"></script>
+
+<!-- Prism Highlight Lines Plugin -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/prism-highlight-lines-plugin@latest/src/style.css">
+<script src="https://cdn.jsdelivr.net/npm/prism-highlight-lines-plugin@latest/dist/index.min.js"></script>
 ```
 
 ### 3. Add annotations to your code
