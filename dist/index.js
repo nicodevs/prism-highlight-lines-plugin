@@ -171,7 +171,7 @@ function init(Prism) {
           div.dataset.line = lineNumber;
           div.dataset.type = type;
           Object.assign(div.style, {
-            position: 'absolute', left: '0', right: '0', pointerEvents: 'none',
+            position: 'absolute', left: '0', pointerEvents: 'none',
             lineHeight: 'inherit', whiteSpace: 'pre', zIndex: '0'
           });
           pre.appendChild(div);
@@ -190,9 +190,16 @@ function init(Prism) {
       const lineHeight = parseFloat(lh) || parseFloat(fs) * 1.2 || 20;
       const paddingTop = parseFloat(pt) || 0;
 
+      // Get the full scrollable width of the code content
+      const contentWidth = Math.max(code.scrollWidth, code.offsetWidth);
+
       pre.querySelectorAll('.line-highlight-overlay').forEach(highlight => {
         const top = paddingTop + ((+highlight.dataset.line - 1) * lineHeight);
-        Object.assign(highlight.style, { top: top + 'px', height: lineHeight + 'px' });
+        Object.assign(highlight.style, {
+          top: top + 'px',
+          height: lineHeight + 'px',
+          width: contentWidth + 'px'
+        });
       });
     };
 
