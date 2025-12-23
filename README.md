@@ -1,5 +1,8 @@
 # Prism Highlight Lines Plugin
 
+- [NPM](https://www.npmjs.com/package/prism-highlight-lines-plugin)
+- [GitHub](https://github.com/nicodevs/prism-highlight-lines-plugin)
+
 A powerful Prism.js plugin that enables line highlighting with annotations embedded directly in code comments. Perfect for tutorials, documentation, and code diffs.
 
 ## Features

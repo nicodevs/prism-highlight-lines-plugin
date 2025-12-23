@@ -1,312 +1,268 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Prism Multi-Annotation Support</title>
 
-  <!-- Prism Core -->
-  <link href="https://cdn.jsdelivr.net/npm/prismjs@1.30.0/themes/prism.css" rel="stylesheet">
-  <script src="https://cdn.jsdelivr.net/npm/prismjs@1.30.0/prism.min.js"></script>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Prism Highlight Lines Plugin</title>
+<script src="https://cdn.tailwindcss.com"></script>
 
-  <!-- Prism Languages -->
-  <script src="https://cdn.jsdelivr.net/npm/prismjs@1.30.0/components/prism-typescript.min.js"></script>
+<!-- Prism Core -->
+<link href="https://cdn.jsdelivr.net/npm/prismjs@1.30.0/themes/prism.css" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/prismjs@1.30.0/prism.min.js"></script>
 
-  <!-- Prism Highlight Lines Plugin -->
-  <link href="https://cdn.jsdelivr.net/npm/prism-highlight-lines-plugin@latest/src/style.css" rel="stylesheet">
-  <script src="https://cdn.jsdelivr.net/npm/prism-highlight-lines-plugin@latest/dist/index.min.js"></script>
+<!-- Prism Languages -->
+<script src="https://cdn.jsdelivr.net/npm/prismjs@1.30.0/components/prism-markup.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/prismjs@1.30.0/components/prism-markup-templating.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/prismjs@1.30.0/components/prism-typescript.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/prismjs@1.30.0/components/prism-php.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/prismjs@1.30.0/components/prism-bash.min.js"></script>
 
-  <!-- <link href="../src/style.css" rel="stylesheet"> -->
-  <!-- <script src="../dist/index.min.js"></script> -->
+<!-- Prism Highlight Lines Plugin -->
+<link href="https://cdn.jsdelivr.net/npm/prism-highlight-lines-plugin@latest/src/style.css" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/prism-highlight-lines-plugin@latest/dist/index.min.js"></script>
 
-  <style>
+<style>
+pre { background-color: #f5f2f0; padding: 1rem; }
+code { background-color: #f5f2f0; }
+</style>
 
-    body {
-    font-family: sans-serif;
-    max-width: 56rem;
-    margin: 0 auto;
-    padding: 1rem;
-}
-
-a {
-    color: #007bff;
-    text-decoration: none;
-}
-
-code[class*="language-"] {
-    background-color: #f3f3f3;
-}
-
-pre[class*="language-"] {
-    background-color: #f3f3f3;
-    border: 1px solid #ccc;
-    border-radius: 6px;
-}
-
-hr {
-    border: 0.25rem solid gray;
-    margin: 3rem 0rem;
-}
-
-pre {
-  background-color: #eee;
-  max-width: 100%;
-  padding: 1rem;
-  font-size: 1rem;
-  overflow-x: scroll;
-}
-    .test-section {
-      margin: 2rem 0;
-    }
-
-    .syntax-examples {
-      background: #e3f2fd;
-      padding: 1rem;
-      border-radius: 6px;
-      margin-bottom: 1rem;
-    }
-
-    .syntax-examples code {
-      background: rgba(255,255,255,0.8);
-      padding: 2px 4px;
-      border-radius: 3px;
-    }
-
-    .legend {
-      display: flex;
-      gap: 1rem;
-      margin-bottom: 1rem;
-      padding: 1rem;
-      background: #f8f9fa;
-      border-radius: 6px;
-      flex-direction: column;
-    }
-
-    .legend-item {
-      display: flex;
-      align-items: center;
-      gap: 0.5rem;
-    }
-
-    .legend-color {
-      width: 20px;
-      height: 20px;
-      border-radius: 3px;
-      border: 2px solid;
-    }
-
-    .legend-highlight {
-      background-color: rgba(255, 255, 0, 0.2);
-      border-color: #f7df1e;
-    }
-
-    .legend-add {
-      background-color: rgba(34, 197, 94, 0.15);
-      border-color: #22c55e;
-    }
-
-    .legend-remove {
-      background-color: rgba(239, 68, 68, 0.15);
-      border-color: #ef4444;
-    }
-  </style>
 </head>
+
 <body>
-  <h1>Prism Highlight Lines Plugin</h1>
-  <p>A plugin for highlighting code lines with annotations in comments.</p>
+  <div class="max-w-screen-lg mx-auto py-12 space-y-6">
+    <h1 class="font-bold text-6xl">Prism Highlight Lines Plugin</h1>
+    <h2 class="font-bold text-3xl">Highlight lines using comments in your code snippets</h2>
+    <div class="bg-gray-200 p-4 rounded-xl"><img src="prism-highlight-lines-plugin.webp" alt="Prism Highlight Lines Plugin"></div>
 
-  <div class="legend">
-    <div class="legend-item">
-      <div class="legend-color legend-add"></div>
-      <code>add</code> - Green
-    </div>
-    <div class="legend-item">
-      <div class="legend-color legend-remove"></div>
-      <code>remove</code> - Red
-    </div>
-    <div class="legend-item">
-      <div class="legend-color legend-highlight"></div>
-      <code>highlight</code> - Yellow
-    </div>
-  </div>
-
-  <div class="syntax-examples">
-    <h3>Annotation Syntax:</h3>
-    <ul>
-      <li><code>[tl! add]</code> - Mark line as added (green)</li>
-      <li><code>[tl! remove]</code> - Mark line as removed (red)</li>
-      <li><code>[tl! highlight]</code> - Highlight line (yellow)</li>
-      <li><code>[tl! add:3]</code> - Add next 3 lines (including current)</li>
-      <li><code>[tl! remove:-2,3]</code> - Remove 3 lines starting 2 lines up</li>
-      <li><code>[tl! highlight add:1 remove:-1]</code> - Combine multiple annotations</li>
+    <ul class="flex gap-6 items-center justify-center">
+      <li class="w-32">
+        <a href="https://www.npmjs.com/package/prism-highlight-lines-plugin">
+          <img src="logo-npm.svg" alt="NPM">
+        </a>
+      </li>
+      <li class="w-32">
+        <a href="https://github.com/nicodevs/prism-highlight-lines-plugin">
+          <img src="logo-github.svg" alt="GitHub">
+        </a>
+      </li>
     </ul>
-  </div>
 
-  <div class="test-section">
-    <h2>Example 1: Basic Add</h2>
-    <pre>interface UserConfig {
-  name: string; // [tl! add]
-  email: string;
-  legacyId?: number;
+    <hr>
+
+    <h2 class="font-bold text-3xl">Installation</h2>
+
+    <p>Install with your favorite package manager:</p>
+
+    <pre><code class="language-bash">npm install prism-highlight-lines-plugin</code></pre>
+
+    <p>Then, import the plugin after importing Prism.</p>
+
+    <pre><code class="language-javascript">import Prism from 'prismjs';
+
+import 'prism-highlight-lines-plugin';
+import 'prism-highlight-lines-plugin/src/style.css';</code></pre>
+
+    <h2 class="font-bold text-3xl">Alternative: CDN</h2>
+
+    <pre><code class="language-html">&lt;!-- Prism Core --&gt;
+&lt;link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/prismjs@1/themes/prism.min.css"&gt;
+&lt;script src="https://cdn.jsdelivr.net/npm/prismjs@1/prism.min.js"&gt;&lt;/script&gt;
+
+&lt;!-- Add language components as needed --&gt;
+&lt;script src="https://cdn.jsdelivr.net/npm/prismjs@1/components/prism-javascript.min.js"&gt;&lt;/script&gt;
+
+&lt;!-- Prism Highlight Lines Plugin --&gt;
+&lt;link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/prism-highlight-lines-plugin@latest/src/style.css"&gt;
+&lt;script src="https://cdn.jsdelivr.net/npm/prism-highlight-lines-plugin@latest/dist/index.min.js"&gt;&lt;/script&gt;</code></pre>
+
+    <hr>
+
+    <h2 class="font-bold text-3xl">Usage</h2>
+
+    <p>This plugin lets you highlight lines in your code snippets using comments with special annotations.</p>
+
+    <p>All annotations start with <code>[tl!</code> and end with <code>]</code>.</p>
+
+    <p>There are 3 types: <code>highlight</code>, <code>add</code> and <code>remove</code>.</p>
+
+    <h3 class="font-bold text-2xl">Examples</h3>
+
+    <p>Example 1: Add</p>
+
+    <div class="flex items-center gap-4">
+      <pre class="flex-1">interface UserConfig {
+    name: string; // [tl! add]
+    email: string;
+    legacyId?: number;
 }</pre>
-    <p><strong>Result:</strong></p>
-    <pre><code class="language-typescript">interface UserConfig {
-  name: string; // [tl! add]
-  email: string;
-  legacyId?: number;
-}
-</code></pre>
-  </div>
+      <pre class="flex-1"><code class="language-typescript">interface UserConfig {
+    name: string; // [tl! add]
+    email: string;
+    legacyId?: number;
+}</code></pre>
+    </div>
 
-  <div class="test-section">
-    <h2>Example 2: Basic Remove</h2>
-    <pre>interface UserConfig {
-  name: string;
-  email: string;
-  legacyId?: number; // [tl! remove]
+    <p>Example 2: Remove</p>
+
+    <div class="flex items-center gap-4">
+      <pre class="flex-1">interface UserConfig {
+    name: string;
+    email: string;
+    legacyId?: number; // [tl! remove]
 }</pre>
-    <p><strong>Result:</strong></p>
-    <pre><code class="language-typescript">interface UserConfig {
-  name: string;
-  email: string;
-  legacyId?: number; // [tl! remove]
-}
-</code></pre>
-  </div>
+      <pre class="flex-1"><code class="language-typescript">interface UserConfig {
+    name: string;
+    email: string;
+    legacyId?: number; // [tl! remove]
+}</code></pre>
+    </div>
 
-  <div class="test-section">
-    <h2>Example 3: Basic Highlight</h2>
-    <pre>const config = {
-  apiUrl: process.env.API_URL,
-  timeout: 5000, // [tl! highlight]
-  retries: 3,
-};</pre>
-    <p><strong>Result:</strong></p>
-    <pre><code class="language-typescript">const config = {
-  apiUrl: process.env.API_URL,
-  timeout: 5000, // [tl! highlight]
-  retries: 3,
-};
-</code></pre>
-  </div>
+    <p>Example 3: Highlight</p>
 
-  <div class="test-section">
-    <h2>Example 4: Add with Range</h2>
-    <pre>class UserService {
-  async getUser(id: string): Promise&lt;User&gt; {
-    return await this.api.get(`/users/${id}`);
-  }
-
-  async updateUser(id: string, data: Partial&lt;User&gt;): Promise&lt;User&gt; { // [tl! add:3]
-    return /* this is a really really really long comment to see if this works */ await this.api.put(`/users/${id}`, data);
-  }
+    <div class="flex items-center gap-4">
+      <pre class="flex-1">interface UserConfig {
+    name: string;
+    email: string; // [tl! highlight]
+    legacyId?: number;
 }</pre>
-    <p><strong>Result:</strong></p>
-    <pre><code class="language-typescript">class UserService {
-  async getUser(id: string): Promise<User> {
-    return await this.api.get(`/users/${id}`);
-  }
+      <pre class="flex-1"><code class="language-typescript">interface UserConfig {
+    name: string;
+    email: string; // [tl! highlight]
+    legacyId?: number;
+}</code></pre>
+    </div>
 
-  async updateUser(id: string, data: Partial<User>): Promise<User> { // [tl! add:3]
-    return /* this is a really really really long comment to see if this works */ await this.api.put(`/users/${id}`, data);
-  }
-}
-</code></pre>
-  </div>
+    <hr>
 
-  <div class="test-section">
-    <h2>Example 5: Remove with Range</h2>
-    <pre>class ApiClient {
-  // Legacy REST endpoints // [tl! remove:4]
-  async getUserLegacy(id: string) {
-    return fetch(`/api/v1/user/${id}`).then(r =&gt; r.json());
-  }
+    <h2 class="font-bold text-3xl">Ranges</h2>
 
-  // Modern GraphQL implementation
-  async getUser(id: string): Promise&lt;User&gt; {
-    return this.graphql.query({ userId: id });
-  }
+    <p>You can highlight multiple lines using a <code>:</code> and an integer to specify how many lines to highlight.</p>
+
+    <h3 class="font-bold text-2xl">Examples</h3>
+
+    <p>Example 1: Range</p>
+
+    <div class="flex items-center gap-4">
+      <pre class="flex-1">interface UserConfig {
+    name: string; // [tl! add:2]
+    email: string;
+    legacyId?: number;
 }</pre>
-    <p><strong>Result:</strong></p>
-    <pre><code class="language-typescript">class ApiClient {
-  // Legacy REST endpoints // [tl! remove:4]
-  async getUserLegacy(id: string) {
-    return fetch(`/api/v1/user/${id}`).then(r => r.json());
-  }
+      <pre class="flex-1"><code class="language-typescript">interface UserConfig {
+    name: string; // [tl! add:2]
+    email: string;
+    legacyId?: number;
+}</code></pre>
+    </div>
 
-  // Modern GraphQL implementation
-  async getUser(id: string): Promise<User> {
-    return this.graphql.query({ userId: id });
-  }
-}
-</code></pre>
-  </div>
+    <p>Example 2: Negative range</p>
 
-  <div class="test-section">
-    <h2>Example 6: Highlight with Range</h2>
-    <pre>function calculateDiscount(price: number, userTier: string): number {
-  let discount = 0;
-
-  if (userTier === 'premium') { // [tl! highlight:3]
-    discount = price * 0.20;
-  } else if (userTier === 'gold') {
-    discount = price * 0.15;
-  }
-
-  return price - discount;
+    <div class="flex items-center gap-4">
+      <pre class="flex-1">interface UserConfig {
+    name: string;
+    email: string;
+    legacyId?: number; // [tl! remove:-2]
 }</pre>
-    <p><strong>Result:</strong></p>
-    <pre><code class="language-typescript">function calculateDiscount(price: number, userTier: string): number {
-  let discount = 0;
+      <pre class="flex-1"><code class="language-typescript">interface UserConfig {
+    name: string;
+    email: string;
+    legacyId?: number; // [tl! remove:-2]
+}</code></pre>
+    </div>
 
-  if (userTier === 'premium') { // [tl! highlight:3]
-    discount = price * 0.20;
-  } else if (userTier === 'gold') {
-    discount = price * 0.15;
-  }
+    <p>Example 3: Multiple Ranges</p>
 
-  return price - discount;
-}
-</code></pre>
-  </div>
-
-  <div class="test-section">
-    <h2>Example 7: Combo - All Three Types</h2>
-    <pre>class PaymentProcessor {
-  async processPayment(amount: number): Promise&lt;PaymentResult&gt; {
-    // Old synchronous validation
-    if (amount &lt;= 0) throw new Error('Invalid amount'); // [tl! remove]
-
-    // New async validation with detailed checks // [tl! add:3]
-    const validation = await this.validateAmount(amount);
-    if (!validation.isValid) throw new PaymentError(validation.message);
-
-    const result = await this.gateway.charge(amount); // [tl! highlight]
-
-    return result;
-  }
+    <div class="flex items-center gap-4">
+      <pre class="flex-1">interface UserConfig {
+    name: string;
+    email: string; // [tl! highlight:2 remove:-1]
+    legacyId?: number;
 }</pre>
-    <p><strong>Result:</strong></p>
-    <pre><code class="language-typescript">class PaymentProcessor {
-  async processPayment(amount: number): Promise<PaymentResult> {
-    // Old synchronous validation
-    if (amount <= 0) throw new Error('Invalid amount'); // [tl! remove]
+      <pre class="flex-1"><code class="language-typescript">interface UserConfig {
+    name: string;
+    email: string; // [tl! highlight:2 remove:-1]
+    legacyId?: number;
+}</code></pre>
+    </div>
 
-    // New async validation with detailed checks // [tl! add:3]
-    const validation = await this.validateAmount(amount);
-    if (!validation.isValid) throw new PaymentError(validation.message);
+    <hr>
 
-    const result = await this.gateway.charge(amount); // [tl! highlight]
+    <h2 class="font-bold text-3xl">Languages</h2>
 
-    return result;
-  }
-}
-</code></pre>
+    <p>Works with all Prism.js supported languages including:</p>
+
+    <ul class="list-disc pl-6">
+      <li>JavaScript, TypeScript, Java, C, C++, C#, PHP, Go, Rust, Swift, Kotlin, Dart</li>
+      <li>Python, Ruby, Perl, Bash, Shell, PowerShell, YAML, R</li>
+      <li>Lua, Haskell, Elm, Lisp, Clojure, Scheme</li>
+      <li>MATLAB, TeX, LaTeX</li>
+      <li>CSS, SCSS, Sass, Less, SQL</li>
+      <li>HTML, XML, Blade templates</li>
+    </ul>
+
+    <h3 class="font-bold text-2xl">Examples</h3>
+
+    <p>Example 1: HTML</p>
+
+    <div class="flex items-center gap-4">
+      <pre class="flex-1">&lt;form action="/subscribe"&gt;
+  &lt;input name="email"&gt; &lt;!-- [tl! highlight] --&gt;
+  &lt;button type="submit"&gt;Subscribe&lt;/button&gt;
+&lt;/form&gt;</pre>
+      <pre class="flex-1"><code class="language-html">&lt;form action="/subscribe"&gt;
+  &lt;input name="email"&gt; &lt;!-- [tl! highlight] --&gt;
+  &lt;button type="submit"&gt;Subscribe&lt;/button&gt;
+&lt;/form&gt;</code></pre>
+    </div>
+
+    <p>Example 2: PHP</p>
+
+    <div class="flex items-center gap-4">
+      <pre class="flex-1">function getUser($id) {
+  return User::find($id); // [tl! remove]
+  return User::findOrFail($id); // [tl! add]
+}</pre>
+      <pre class="flex-1"><code class="language-php">function getUser($id) {
+  return User::find($id); // [tl! remove]
+  return User::findOrFail($id); // [tl! add]
+}</code></pre>
+    </div>
+
+    <p>Example 3: Bash</p>
+
+    <div class="flex items-center gap-4">
+      <pre class="flex-1">#!/bin/bash
+npm install # [tl! highlight]
+npm run build
+npm test</pre>
+      <pre class="flex-1"><code class="language-bash">#!/bin/bash
+npm install # [tl! highlight]
+npm run build
+npm test</code></pre>
+    </div>
+
+    <hr>
+
+    <h2 class="font-bold text-3xl">Browser Support</h2>
+
+    <p>Works in all modern browsers that support:</p>
+
+    <ul class="list-disc pl-6">
+      <li>ES6+</li>
+      <li>MutationObserver</li>
+      <li>Prism.js</li>
+    </ul>
+
+    <h2 class="font-bold text-3xl">License</h2>
+
+    <p>MIT</p>
+
+    <h2 class="font-bold text-3xl">Author</h2>
+
+    <p><a class="text-blue-500 font-bold" href="https://nicodevs.com">Nico Devs</a></p>
+
+    <script>Prism.highlightAll();</script>
   </div>
-
-  <script>
-    // Initialize Prism highlighting
-    Prism.highlightAll();
-  </script>
 </body>
 </html>
