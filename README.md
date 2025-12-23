@@ -2,17 +2,20 @@
 
 ## Highlight code snippets lines using comments
 
-<div style="padding: 1rem; background: #AAA">
 <img src="docs/prism-highlight-lines-plugin.webp" alt="Prism Highlight Lines Plugin">
-</div>
 
-<a href="https://www.npmjs.com/package/prism-highlight-lines-plugin" style="display: block">
-  <img src="docs/logo-npm.svg" alt="NPM" style="max-width: 120px">
-</a>
-
-<a href="https://github.com/nicodevs/prism-highlight-lines-plugin" style="display: block">
-  <img src="docs/logo-github.svg" alt="GitHub" style="max-width: 120px">
-</a>
+<ul>
+  <li>
+    <a href="https://www.npmjs.com/package/prism-highlight-lines-plugin">
+      NPM
+    </a>
+  </li>
+  <li>
+    <a href="https://github.com/nicodevs/prism-highlight-lines-plugin">
+      GitHub
+    </a>
+  </li>
+</ul>
 
 ---
 
