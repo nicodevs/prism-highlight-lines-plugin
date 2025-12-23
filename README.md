@@ -1,36 +1,39 @@
 # Prism Highlight Lines Plugin
 
-- [NPM](https://www.npmjs.com/package/prism-highlight-lines-plugin)
-- [GitHub](https://github.com/nicodevs/prism-highlight-lines-plugin)
+## Highlight code snippets lines using comments
 
-A powerful Prism.js plugin that enables line highlighting with annotations embedded directly in code comments. Perfect for tutorials, documentation, and code diffs.
+<div style="padding: 1rem; background: #AAA">
+<img src="docs/prism-highlight-lines-plugin.webp" alt="Prism Highlight Lines Plugin">
+</div>
 
-## Features
+<a href="https://www.npmjs.com/package/prism-highlight-lines-plugin" style="display: block">
+  <img src="docs/logo-npm.svg" alt="NPM" style="max-width: 120px">
+</a>
 
-- **Multiple highlight types**: highlight, add (green), remove (red)
-- **Flexible range syntax**: highlight single lines, ranges, or multiple groups
-- **Language-agnostic**: works with all Prism.js supported languages
-- **Inline annotations**: write highlighting instructions directly in your code comments
-- **Zero configuration**: works out of the box with Prism.js
+<a href="https://github.com/nicodevs/prism-highlight-lines-plugin" style="display: block">
+  <img src="docs/logo-github.svg" alt="GitHub" style="max-width: 120px">
+</a>
+
+---
 
 ## Installation
+
+Install with your favorite package manager:
 
 ```bash
 npm install prism-highlight-lines-plugin
 ```
 
-## Usage
-
-### 1. Import the plugin
+Then, import the plugin after importing Prism.
 
 ```javascript
-// After importing Prism
 import Prism from 'prismjs';
+
 import 'prism-highlight-lines-plugin';
 import 'prism-highlight-lines-plugin/src/style.css';
 ```
 
-### 2. Or use via CDN
+## Alternative: CDN
 
 ```html
 <!-- Prism Core -->
@@ -45,74 +48,68 @@ import 'prism-highlight-lines-plugin/src/style.css';
 <script src="https://cdn.jsdelivr.net/npm/prism-highlight-lines-plugin@latest/dist/index.min.js"></script>
 ```
 
-### 3. Add annotations to your code
+---
 
-Simply add highlighting annotations as comments in your code blocks:
+## Usage
 
-```javascript
-function example() {
-  console.log('This line is normal');
-  console.log('This line will be highlighted'); // [tl! highlight]
-  console.log('This was added'); // [tl! add]
-  console.log('This was removed'); // [tl! remove]
-}
-```
+This plugin lets you highlight lines in your code snippets using comments with special annotations.
 
-## Annotation Syntax
+All annotations start with `[tl!` and end with `]`.
 
-### Basic Format
-
-```
-// [tl! type:range type:range ...]
-<!-- [tl! type:range type:range ...] -->
-/* [tl! type:range type:range ...] */
-```
-
-### Highlight Types
-
-- `highlight` - Default yellow highlighting
-- `add` - Green highlighting (for additions/new code)
-- `remove` - Red highlighting (for deletions/old code)
-
-### Range Syntax
-
-- `3` - Highlight the next 3 lines (including current)
-- `-2` - Highlight the previous 2 lines (including current)
-- `1,3` - Offset +1, count 3 lines (skip 1, highlight next 3)
-- `-1,2` - Offset -1, count 2 lines (go back 1, highlight 2)
+There are 3 types: `highlight`, `add` and `remove`.
 
 ### Examples
 
-#### Single line highlight
-```javascript
-const name = 'John'; // [tl! highlight]
-```
+**Example 1: Add**
 
-#### Highlight next 3 lines
-```javascript
-// [tl! highlight:3]
-const a = 1;
-const b = 2;
-const c = 3;
-```
+| Code | Result |
+|------|--------|
+| <pre>interface UserConfig {<br>    name: string; // [tl! add]<br>    email: string;<br>    legacyId?: number;<br>}</pre> | <img src="docs/screenshots/01.webp" alt="Add Example" style="max-width: 500px"> |
 
-#### Multiple types
-```javascript
-const old = 'value'; // [tl! remove]
-const new = 'value'; // [tl! add]
-```
+**Example 2: Remove**
 
-#### Complex ranges
-```javascript
-// [tl! remove:-2,3 add:1,2]
-// This will:
-// - Remove 3 lines starting 2 lines before this comment
-// - Add 2 lines starting 1 line after this comment
-```
+| Code | Result |
+|------|--------|
+| <pre>interface UserConfig {<br>    name: string;<br>    email: string;<br>    legacyId?: number; // [tl! remove]<br>}</pre> | <img src="docs/screenshots/02.webp" alt="Remove Example" style="max-width: 500px"> |
 
-## Supported Languages
+**Example 3: Highlight**
+
+| Code | Result |
+|------|--------|
+| <pre>interface UserConfig {<br>    name: string;<br>    email: string; // [tl! highlight]<br>    legacyId?: number;<br>}</pre> | <img src="docs/screenshots/03.webp" alt="Highlight Example" style="max-width: 500px"> |
+
+---
+
+## Ranges
+
+You can highlight multiple lines using a `:` and an integer to specify how many lines to highlight.
+
+### Examples
+
+**Example 1: Range**
+
+| Code | Result |
+|------|--------|
+| <pre>interface UserConfig {<br>    name: string; // [tl! add:2]<br>    email: string;<br>    legacyId?: number;<br>}</pre> | <img src="docs/screenshots/04.webp" alt="Range Example" style="max-width: 500px"> |
+
+**Example 2: Negative range**
+
+| Code | Result |
+|------|--------|
+| <pre>interface UserConfig {<br>    name: string;<br>    email: string;<br>    legacyId?: number; // [tl! remove:-2]<br>}</pre> | <img src="docs/screenshots/05.webp" alt="Negative Range Example" style="max-width: 500px"> |
+
+**Example 3: Multiple Ranges**
+
+| Code | Result |
+|------|--------|
+| <pre>interface UserConfig {<br>    name: string;<br>    email: string; // [tl! highlight:2 remove:-1]<br>    legacyId?: number;<br>}</pre> | <img src="docs/screenshots/06.webp" alt="Multiple Ranges Example" style="max-width: 500px"> |
+
+---
+
+## Languages
 
 Works with all Prism.js supported languages including:
+
 - JavaScript, TypeScript, Java, C, C++, C#, PHP, Go, Rust, Swift, Kotlin, Dart
 - Python, Ruby, Perl, Bash, Shell, PowerShell, YAML, R
 - Lua, Haskell, Elm, Lisp, Clojure, Scheme
@@ -120,9 +117,32 @@ Works with all Prism.js supported languages including:
 - CSS, SCSS, Sass, Less, SQL
 - HTML, XML, Blade templates
 
+### Examples
+
+**Example 1: HTML**
+
+| Code | Result |
+|------|--------|
+| <pre>&lt;form action="/subscribe"&gt;<br>  &lt;input name="email"&gt; &lt;!-- [tl! highlight] --&gt;<br>  &lt;button type="submit"&gt;Subscribe&lt;/button&gt;<br>&lt;/form&gt;</pre> | <img src="docs/screenshots/07.webp" alt="HTML Example" style="max-width: 500px"> |
+
+**Example 2: PHP**
+
+| Code | Result |
+|------|--------|
+| <pre>function getUser($id) {<br>  return User::find($id); // [tl! remove]<br>  return User::findOrFail($id); // [tl! add]<br>}</pre> | <img src="docs/screenshots/08.webp" alt="PHP Example" style="max-width: 500px"> |
+
+**Example 3: Bash**
+
+| Code | Result |
+|------|--------|
+| <pre>#!/bin/bash<br>npm install # [tl! highlight]<br>npm run build<br>npm test</pre> | <img src="docs/screenshots/09.webp" alt="Bash Example" style="max-width: 500px"> |
+
+---
+
 ## Browser Support
 
 Works in all modern browsers that support:
+
 - ES6+
 - MutationObserver
 - Prism.js
@@ -130,3 +150,7 @@ Works in all modern browsers that support:
 ## License
 
 MIT
+
+## Author
+
+[Nico Devs](https://nicodevs.com)

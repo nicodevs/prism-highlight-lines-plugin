@@ -8,7 +8,7 @@
 <script src="https://cdn.tailwindcss.com"></script>
 
 <!-- Prism Core -->
-<link href="https://cdn.jsdelivr.net/npm/prismjs@1.30.0/themes/prism.css" rel="stylesheet">
+<!-- <link href="https://cdn.jsdelivr.net/npm/prismjs@1.30.0/themes/prism.css" rel="stylesheet"> -->
 <script src="https://cdn.jsdelivr.net/npm/prismjs@1.30.0/prism.min.js"></script>
 
 <!-- Prism Languages -->
@@ -23,8 +23,56 @@
 <script src="https://cdn.jsdelivr.net/npm/prism-highlight-lines-plugin@latest/dist/index.min.js"></script>
 
 <style>
-pre { background-color: #f5f2f0; padding: 1rem; }
-code { background-color: #f5f2f0; }
+pre { background-color: #f5f2f0; padding: 1rem; overflow: auto; }
+
+.token.attr-value {
+    color: #24292E;
+}
+
+.token.tag {
+    color: #22863A;
+}
+
+.token.tag .token.punctuation {
+    color: #24292E;
+}
+
+.token.attr-name {
+    color: #6F42C1;
+}
+
+.token.comment {
+    color: #6A737D;
+}
+
+.token.property {
+    color: #005CC5;
+}
+
+.token.bold {
+	font-weight: bold;
+}
+
+.token.italic {
+	font-style: italic;
+}
+
+.token.class-name {
+    color: #005CC5;
+}
+
+.token.keyword,
+.token.operator {
+    color: #D73A49;
+}
+
+.token.function {
+    color: #6F42C1;
+}
+
+.token.symbol {
+    color: #005CC5;
+}
 </style>
 
 </head>
@@ -32,7 +80,7 @@ code { background-color: #f5f2f0; }
 <body>
   <div class="max-w-screen-lg mx-auto py-12 space-y-6">
     <h1 class="font-bold text-6xl">Prism Highlight Lines Plugin</h1>
-    <h2 class="font-bold text-3xl">Highlight lines using comments in your code snippets</h2>
+    <h2 class="font-bold text-3xl">Highlight code snippets lines using comments</h2>
     <div class="bg-gray-200 p-4 rounded-xl"><img src="prism-highlight-lines-plugin.webp" alt="Prism Highlight Lines Plugin"></div>
 
     <ul class="flex gap-6 items-center justify-center">
