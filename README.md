@@ -2,7 +2,7 @@
 
 ## Highlight code snippets lines using comments
 
-<img src="docs/prism-highlight-lines-plugin.webp" alt="Prism Highlight Lines Plugin">
+<img src="docs/prism-highlight-lines-plugin.png" alt="Prism Highlight Lines Plugin">
 
 <ul>
   <li>
